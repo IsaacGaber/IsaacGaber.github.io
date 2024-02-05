@@ -6,11 +6,11 @@ h1 {
   text-align: center;
 }
 
-ul {
+/* ul {
   background: white;
   padding: 10px;
-  /* border: 1px solid black; */
-}
+  border: 1px solid black;
+} */
 footer {
   content: 'Copyright 2024 By Isaac Gaber. All rights reserved';
   text-align: center;
