@@ -2,13 +2,23 @@ html {
   background-color: white;
   font-size: 20px;
 }
-
-ul {
-  background: red;
-  padding: 10px;
-  border: 1px solid black;
+h1 {
+  text-align: center;
 }
 
+ul {
+  background: white;
+  padding: 10px;
+  /* border: 1px solid black; */
+}
+footer {
+  content: 'Copyright 2024 By Isaac Gaber. All rights reserved';
+  text-align: center;
+}
+.blog {
+  padding-left: 200px;
+  padding-right: 200px;
+}
 li {
   margin-left: 20px;
 }
