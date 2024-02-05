@@ -1,18 +1,19 @@
 html {
-  background-color: white;
   font-size: 20px;
 }
 h1 {
   text-align: center;
 }
-
 footer {
-  content: 'Copyright 2024 By Isaac Gaber. All rights reserved';
   text-align: center;
+}
+footer::after {
+  content: 'Copyright 2024 By Isaac Gaber. All rights reserved';
 }
 .blog {
   padding-left: 200px;
   padding-right: 200px;
+  text-shadow: 10;
 }
 li {
   margin-left: 20px;
