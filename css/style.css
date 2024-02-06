@@ -14,7 +14,7 @@ html, body {
 ul {
   list-style-position: inside;
   flex-grow: 0;
-  text-align: center;
+  text-align: left;
   text-indent: 0;
   /* background-color: red; */
 }
