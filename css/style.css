@@ -1,22 +1,55 @@
-html {
+html, body {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  /* text-shadow: 2px, 2px, 2px Red; */
   background-color: #F2F2F2;
   color: #1A1A1A;
   font-size: 28px;
+  padding: 20px;
+
 }
-h1 {
+
+ul {
+  list-style-position: inside;
+  flex-grow: 0;
+  text-align: center;
+  text-indent: 0;
+  /* background-color: red; */
+}
+
+
+.wrapper {
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.page-footer, .page-header {
+  flex-grow: 0;
+  flex-shrink: 0;
+  /* background-color: Red; */
+}
+.page-footer {
   text-align: center;
 }
-footer {
-  text-align: center;
+.navbar {
+  text-align: left;
+  font-size: 24px;
 }
-footer::after {
+.page-header {
+  text-align: left;
+  font-size: 48px;
+}
+.page-footer::after {
   content: 'Copyright © 2024 By Isaac Gaber. All rights reserved';
 }
-.blog {
-  padding-left: 200px;
-  padding-right: 200px;
-  text-shadow: 10;
+.page-body {
+  flex-grow: 1;
 }
-li {
-  margin-left: 20px;
+.blog {
+  flex-grow: 1;
+  padding: 50px;
+  text-shadow: 10;
 }
