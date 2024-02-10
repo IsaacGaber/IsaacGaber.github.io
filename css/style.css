@@ -6,8 +6,8 @@ html, body {
   /* text-shadow: 2px, 2px, 2px Red; */
   background-color: #F2F2F2;
   color: #1A1A1A;
-  font-size: 28px;
-  font-family: "EB Garamond", "Garamond", sans-serif;
+  font-size: 36px;
+  font-family: "Garamond", serif;
   padding: 20px;
 
 }
@@ -41,7 +41,7 @@ ul {
 }
 .page-header {
   text-align: left;
-  font-size: 48px;
+  font-size: 64px;
 }
 .page-footer::after {
   content: 'Copyright © 2024 By Isaac Gaber. All rights reserved';
