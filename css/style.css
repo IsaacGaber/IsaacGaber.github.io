@@ -44,7 +44,7 @@ ul {
   font-size: 64px;
 }
 .page-footer::after {
-  content: 'Copyright © 2024 By Isaac Gaber. All rights reserved';
+  content: '2024 By Isaac Gaber.';
 }
 .page-body {
   flex-grow: 1;
