@@ -1,2 +1,3 @@
+from pyscript import display
 def hello():
-    print("Hello!")
+    display("Hello, World!", target="output", append=False)
