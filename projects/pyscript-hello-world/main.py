@@ -10,9 +10,9 @@ for f in os.walk(""):
     print(f)
 print("Printing NLTK: ")
 from js import fetch
-nltk = await fetch("https://isaacgaber.github.io/projects/pyscript-hello-world/nltk")
-
-print(nltk)
+# nltk = await fetch("https://isaacgaber.github.io/projects/pyscript-hello-world/nltk")
+#
+# print(nltk)
 
 # def list_files(startpath):
 #     for root, dirs, files in os.walk(startpath):
