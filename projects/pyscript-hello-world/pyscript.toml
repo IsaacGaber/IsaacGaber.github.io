@@ -1,0 +1,6 @@
+packages = ['nltk']
+
+[[fetch]]
+files = ['nltk']
+from = 'package'
+to_folder = 'package'
