@@ -10,15 +10,7 @@ import os
 # nltk = await fetch("https://isaacgaber.github.io/projects/pyscript-hello-world/nltk")
 #
 # print(nltk)
-
-# def list_files(startpath):
-#     for root, dirs, files in os.walk(startpath):
-#         level = root.replace(startpath, '').count(os.sep)
-#         indent = ' ' * 4 * (level)
-#         print('{}{}/'.format(indent, os.path.basename(root)))
-#         subindent = ' ' * 4 * (level + 1)
-#         for f in files:
-#             print('{}{}'.format(subindent, f))
-# list_files("../")
-
-pyscript.display(os.listdir(), target="output", append=False)
+files = ""
+for f in os.listdir():
+    files += f + "\n"
+pyscript.display(files, target="output", append=False)
