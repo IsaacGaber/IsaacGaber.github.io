@@ -1,4 +1,4 @@
-import pyscript
+# import pyscript
 # import nltk
 # print(nltk)
 # display("Hello, World!", target="output", append=False)
@@ -13,6 +13,6 @@ def list_files(startpath):
         subindent = ' ' * 4 * (level + 1)
         for f in files:
             print('{}{}'.format(subindent, f))
-list_files()
+list_files("../")
 
-pyscript.display(pyscript.__file__, target="output", append=False)
+# pyscript.display(pyscript.__file__, target="output", append=False)
