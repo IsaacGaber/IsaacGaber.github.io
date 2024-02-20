@@ -1,4 +1,4 @@
-# import pyscript
+import pyscript
 # import nltk
 # print(nltk)
 # display("Hello, World!", target="output", append=False)
@@ -15,4 +15,4 @@ def list_files(startpath):
             print('{}{}'.format(subindent, f))
 list_files("../")
 
-# pyscript.display(pyscript.__file__, target="output", append=False)
+pyscript.display(pyscript.__file__, target="output", append=False)
