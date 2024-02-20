@@ -1,6 +1,5 @@
-packages = ['nltk']
-
-[[fetch]]
-files = ['nltk']
-from = 'package'
-to_folder = 'package'
+[files]
+"nltk" = ""
+#
+#  # packages = ["emfs://nltk.whl"]
+# python -m http.server 8080 --bind 127.0.0.1
