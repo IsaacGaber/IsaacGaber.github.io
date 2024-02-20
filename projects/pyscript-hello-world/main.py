@@ -5,11 +5,8 @@ import pyscript
 # display(nltk.__file__, target="output", append=False)
 # display("AAHH", target="output", append=False)
 import os
-print("Printing Structure: ")
-for f in os.walk(""):
-    print(f)
-print("Printing NLTK: ")
-from js import fetch
+
+# from js import fetch
 # nltk = await fetch("https://isaacgaber.github.io/projects/pyscript-hello-world/nltk")
 #
 # print(nltk)
@@ -24,4 +21,4 @@ from js import fetch
 #             print('{}{}'.format(subindent, f))
 # list_files("../")
 
-pyscript.display(pyscript.__file__, target="output", append=False)
+pyscript.display(os.listdir(), target="output", append=False)
