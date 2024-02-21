@@ -1,5 +1,7 @@
 [files]
-"nltk" = ""
-#
-#  # packages = ["emfs://nltk.whl"]
+"nltk.whl" = ""
+"test/test.txt" = ""
+"book.txt" = ""
+
+packages = ["nltk.whl"]
 # python -m http.server 8080 --bind 127.0.0.1
