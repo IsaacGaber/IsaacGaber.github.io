@@ -69,6 +69,8 @@ ul {
   }
   .project .right img {
     width: 40%;
+    position: relative;
+    height: auto;
     /* margin-bottom: 10px; */
   }
   .project .left {
