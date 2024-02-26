@@ -52,5 +52,25 @@ ul {
 .blog {
   flex-grow: 1;
   padding: 50px;
-  text-shadow: 10;
 }
+.project{
+  flex-grow: 1;
+  padding: 50px;
+  display: table;
+  border-top: 2px solid black;
+}
+  .project .project-inner{
+    display: table-row;
+  }
+  .project .right {
+    height: 100%;
+    text-align: right;
+    display: table-cell;
+  }
+  .project .right img {
+    width: 40%;
+    /* margin-bottom: 10px; */
+  }
+  .project .left {
+    display: table-cell;
+  }
