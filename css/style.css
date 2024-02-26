@@ -19,7 +19,6 @@ ul {
   /* background-color: red; */
 }
 
-
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
@@ -49,7 +48,6 @@ ul {
 }
 .page-body {
   flex-grow: 1;
-
   padding-left: 50pt;
   padding-right: 50pt;
     /* padding: 20px; */
@@ -60,6 +58,8 @@ ul {
 }
 .project{
   flex-grow: 1;
+  width: 100%;
+  /* margin-right: 1000pt; */
 	/* padding: 20pt; */
   display: table;
   border-top: 2px solid gray;
@@ -76,12 +76,14 @@ ul {
     display: table-cell;
   }
   .project .right img {
-    width: 40%;
-    position: static;
-    height: auto;
+    width: 320pt;
+    position: relative;
+    /* height: auto; */
+    /* align-items: right; */
     /* margin-bottom: 10px; */
   }
   .project .left {
+    padding-right: 100pt;
     display: table-cell;
     text-align: left;
   }
