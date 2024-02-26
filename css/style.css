@@ -6,7 +6,7 @@ html, body {
   /* text-shadow: 2px, 2px, 2px Red; */
   background-color: #F2F2F2;
   color: #1A1A1A;
-  font-size: 36px;
+  font-size: 36pt;
   font-family: "Garamond", serif;
   /* padding: 0px, 200pt, 0pt, 20pt; */
 }
@@ -38,11 +38,11 @@ ul {
 }
 .navbar {
   text-align: left;
-  font-size: 24px;
+  font-size: 24pt;
 }
 .page-header {
   text-align: left;
-  font-size: 64px;
+  font-size: 64pt;
 }
 .page-footer::after {
   content: '2024 By Isaac Gaber.';
@@ -65,7 +65,7 @@ ul {
   border-top: 2px solid gray;
 }
   .project .name {
-    font-size: 48px;
+    font-size: 48pt;
     }
   .project .project-inner{
     display: table-row;
