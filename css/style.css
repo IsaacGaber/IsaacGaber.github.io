@@ -6,7 +6,7 @@ html, body {
   /* text-shadow: 2px, 2px, 2px Red; */
   background-color: #F2F2F2;
   color: #1A1A1A;
-  font-size: 36pt;
+  font-size: 24pt;
   font-family: "Garamond", serif;
   /* padding: 0px, 200pt, 0pt, 20pt; */
 }
@@ -37,7 +37,7 @@ ul {
 }
 .navbar {
   text-align: left;
-  font-size: 24pt;
+  font-size: 32pt;
 }
 .page-header {
   text-align: left;
@@ -60,7 +60,8 @@ ul {
   flex-grow: 1;
   width: 100%;
   /* margin-right: 1000pt; */
-	/* padding: 20pt; */
+	/* padding-left: 40pt;
+  padding-right: 40pt; */
   display: table;
   border-top: 2px solid gray;
 }
@@ -76,7 +77,7 @@ ul {
     display: table-cell;
   }
   .project .right img {
-    width: 320pt;
+    width: 180pt;
     position: relative;
     /* height: auto; */
     /* align-items: right; */
