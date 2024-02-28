@@ -4,7 +4,7 @@
 from pyscript import display
 import os, mip, time, gc
 # import time, os
-mip.install("http://localhost:8080/automata/automata.py", "automata")
+mip.install("https://isaacgaber.github.io/projects/automata/automata.py", "automata")
 import automata
 display_size = (900, 600)
 
