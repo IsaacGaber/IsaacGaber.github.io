@@ -35,8 +35,8 @@ class Automata():
         # predefine common font character to save on rendering time
         # commonly used default characters
         self.chars = {
-            "x": "<span>" + "x" + "</span>",
-            "o": "<span>" + "o" + "</span>",
+            "x": "x",
+            "o": "o",
             ".": "<span>" + "." + "</span>",
             " ": "<span>" + " " + "</span>",
             "#": "<span>" + "#" + "</span>",
@@ -98,16 +98,24 @@ class Automata():
         )
         return neighbors
     # translates the state of the world into array of pygame surfaces
+    # def render(self):
+    #     to_render = []
+    #     for y in range(self.y):
+    #         for x in range(self.x):
+    #             buffer = self.format(self.state[y][x])
+    #             if buffer != None:
+    #                 to_render.append(buffer)
+    #     return to_render
+
     def render(self):
-        to_render = []
+        to_render = ""
         for y in range(self.y):
             for x in range(self.x):
                 buffer = self.format(self.state[y][x])
-                if buffer != None:
-                    to_render.append(buffer)
+                to_render += buffer
+                # print(buffer)
+            to_render += "\n"
         return to_render
-
-
 #--------------------------------------------------------
 class Life(Automata):
     """class for 'life' Cellular Automata"""
@@ -481,7 +489,7 @@ class Fluid3D(Automata3D):
 ##world = BriansBrain(40, 40, .5)
 ##world.run()
 def create_models(display_size):
-    lifemodel = Life("game of life", 74, 45, *display_size, .3)
+    lifemodel = Life("game of life", 10, 10, *display_size, .3)
     # brianmodel = BriansBrain("brian's brain", 74, 45, *display_size, .3)
     # seedmodel = Seed("'Seed' model", 74, 45, *display_size, .1)
     # smoothmodel = SmoothAutomata("life-ish smooth automata", 74, 45, *display_size, .4)

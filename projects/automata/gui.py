@@ -1,11 +1,10 @@
 # Isaac John Gaber
 # import automata, pygame
 # import automata, pyscript, time
-# from pyscript import display
-import pyscript, os, mip, time
+from pyscript import display
+import os, mip, time, gc
 # import time, os
-# # from automata.py import automata
-mip.install("automata.py", "automata")
+mip.install("http://localhost:8080/automata/automata.py", "automata")
 import automata
 display_size = (900, 600)
 
@@ -46,6 +45,7 @@ class Gui():
 
         while running:
             start_time = time.time()
+            gc.collect()
             # rendering
             # fill the screen with a color to wipe away last frame
             # screen.fill("Black")
@@ -120,8 +120,8 @@ class Gui():
             # pygame.display.flip()
             # locks framerate
             delta = time.time()-start_time
-            time.sleep(1/20-delta)
+            # time.sleep(1/20-delta)
 #--------------------------------------------------------
-
 gui = Gui(automata.create_models(display_size))
 gui.runGUI()
+print("exited")
