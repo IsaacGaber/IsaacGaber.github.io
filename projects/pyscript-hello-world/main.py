@@ -10,7 +10,7 @@ from pyscript import document, display
 # self = type(document.body)
 i = 0
 while True:
-    display(i, target="output", append=False)
+    display("1", target="output", append=False)
     i += 1
 # print(document)
 # import nltk
