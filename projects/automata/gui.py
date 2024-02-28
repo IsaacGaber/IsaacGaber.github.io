@@ -119,8 +119,8 @@ class Gui():
             # flip() display to put work on screen
             # pygame.display.flip()
             # locks framerate
-            delta = time.time()-start_time
-            # time.sleep(1/20-delta)
+            # delta = time.time()-start_time
+            time.sleep(.5)
 #--------------------------------------------------------
 gui = Gui(automata.create_models(display_size))
 gui.runGUI()
