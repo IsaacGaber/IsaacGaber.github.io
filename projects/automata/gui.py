@@ -122,6 +122,8 @@ class Gui():
             # delta = time.time()-start_time
             time.sleep(.5)
 #--------------------------------------------------------
+print("initializing models")
 gui = Gui(automata.create_models(display_size))
+print("entered")
 gui.runGUI()
 print("exited")
