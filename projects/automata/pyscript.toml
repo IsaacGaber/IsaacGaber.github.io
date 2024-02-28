@@ -1,7 +1,7 @@
 [files]
-"nltk.whl" = ""
-"test/test.txt" = ""
+"automata.py" = ""
+# "test/test.txt" = ""
 
 
-# packages = ["nltk.whl"]
+# packages = ["automata.py"]
 # python -m http.server 8080 --bind 127.0.0.1

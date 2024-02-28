@@ -1,11 +1,11 @@
 # Isaac John Gaber
-import random, pygame, copy, os
+import random, os
 #--------------------------------------------------------
-pygame.init()
-font_size = 12
-font = pygame.font.Font("Courier_Prime\CourierPrime-Regular.ttf", font_size)
+# pygame.init()
+# font_size = 12
+# font = pygame.font.Font("Courier_Prime\CourierPrime-Regular.ttf", font_size)
 # sets file path for patterns
-patterns_2d = "patterns_2d.txt"
+# print("This is In Fact")
 random.seed()
 
 # helper function
@@ -35,27 +35,29 @@ class Automata():
         # predefine common font character to save on rendering time
         # commonly used default characters
         self.chars = {
-            "x": font.render("x", True, "Blue", "Black"),
-            "o": font.render("o", True, "White", "Black"),
-            ".": font.render(".", True, "White", "Black"),
-            " ": font.render(" ", True, "White", "Black"),
-            "#": font.render("#", True, "White", "Black"),
-            "=": font.render("=", True, "White", "Black"),
-            "@": font.render("@", True, "White", "Black"),
-            "|": font.render("|", True, "White", "Black")
+            "x": "<span>" + "x" + "</span>",
+            "o": "<span>" + "o" + "</span>",
+            ".": "<span>" + "." + "</span>",
+            " ": "<span>" + " " + "</span>",
+            "#": "<span>" + "#" + "</span>",
+            "=": "<span>" + "=" + "</span>",
+            "@": "<span>" + "@" + "</span>",
+            "|": "<span>" + "|" + "</span>"
             }
         # checks for any patterns stored in file
-        if os.path.exists(patterns_2d):
-            self.state = [[0 for x in range(self.x)] for y in range(self.y)]
-            # loads pattern into list
-            new_pattern = pattern_from_file(patterns_2d)
-            # sets pattern position in center of screen
-            pattern_position = (self.x//2, self.y//2)
-            # appends pattern to state
-            self.add_pattern(new_pattern, pattern_position)
-        else:
-            self.state = [[random.random() < density for x in range(self.x)] for y in range(self.y)]
+        # patterns_2d = "patterns_2d.txt"
+        # if os.path.exists(patterns_2d):
+        #     self.state = [[0 for x in range(self.x)] for y in range(self.y)]
+        #     # loads pattern into list
+        #     new_pattern = pattern_from_file(patterns_2d)
+        #     # sets pattern position in center of screen
+        #     pattern_position = (self.x//2, self.y//2)
+        #     # appends pattern to state
+        #     self.add_pattern(new_pattern, pattern_position)
+        # # else:
+        #     self.state = [[random.random() < density for x in range(self.x)] for y in range(self.y)]
 
+        self.state = [[random.random() < density for x in range(self.x)] for y in range(self.y)]
 
     def add_pattern(self, pattern, position):
         x_pos, y_pos = position
@@ -68,8 +70,6 @@ class Automata():
                     self.state[y_pos + y][x_pos + x] = 1
                 x += 1
             y += 1
-
-
 
     def step(self):
         raise NotImplementedError
@@ -104,7 +104,7 @@ class Automata():
             for x in range(self.x):
                 buffer = self.format(self.state[y][x])
                 if buffer != None:
-                    to_render.append((buffer, (x*font_size, y*font_size)))
+                    to_render.append(buffer)
         return to_render
 
 
@@ -112,7 +112,7 @@ class Automata():
 class Life(Automata):
     """class for 'life' Cellular Automata"""
     def step(self):
-        new_state = copy.deepcopy(self.state)
+        new_state = [cell for cell in self.state]
         for y in range(self.y):
             for x in range(self.x):
                 neighbors = self.check_neighbors(x, y)
@@ -160,7 +160,7 @@ class SmoothAutomata(Automata):
         max_birth = .365
         min_survive = .267
         max_survive = .445
-        new_state = copy.deepcopy(self.state)
+        new_state = [cell for cell in self.state]
         for y in range(self.y):
             for x in range(self.x):
                 neighbors = self.check_neighbors(x, y)
@@ -180,7 +180,7 @@ class SmoothAutomata(Automata):
 class Seed(Automata):
     """Class for 'seed' cellular automata"""
     def step(self):
-        new_state = copy.deepcopy(self.state)
+        new_state = [cell for cell in self.state]
         for y in range(self.y):
             for x in range(self.x):
                 neighbors = self.check_neighbors(x, y)
@@ -194,7 +194,7 @@ class Seed(Automata):
 class BriansBrain(Automata):
     """Class for 'Brians Brain' cellular automata"""
     def step(self):
-        new_state = copy.deepcopy(self.state)
+        new_state = [cell for cell in self.state]
         for y in range(self.y):
             for x in range(self.x):
                 neighbors = self.check_neighbors(x, y)
@@ -220,7 +220,7 @@ class BriansBrain(Automata):
 class Wireworld(Automata):
     """Class for 'Wireworld' cellular automata - Unimplemented"""
     def step(self):
-        new_state = copy.deepcopy(self.state)
+        new_state = [cell for cell in self.state]
         for y in range(self.y):
             for x in range(self.x):
                 neighbors = self.check_neighbors(x, y)
@@ -271,7 +271,7 @@ class Fluid(Automata):
         return neighbors
 
     def step(self):
-        new_state = copy.deepcopy(self.state)
+        new_state = [cell for cell in self.state]
         for y in range(self.y):
             for x in range(self.x):
                 volume = self.state[y][x]
@@ -363,7 +363,7 @@ class Automata3D():
 #--------------------------------------------------------
 class Life3D(Automata3D):
     def step(self):
-        new_state = copy.deepcopy(self.state)
+        new_state = [[cell for cell in slice] for slice in self.state]
         for z in range(self.z):
             for y in range(self.y):
                 for x in range(self.x):
@@ -436,7 +436,7 @@ class Fluid3D(Automata3D):
         return neighbors
 
     def step(self):
-        new_state = copy.deepcopy(self.state)
+        new_state = [[cell for cell in slice] for slice in self.state]
         for z in range(self.z):
             for y in range(self.y):
                 for x in range(self.x):
@@ -482,11 +482,12 @@ class Fluid3D(Automata3D):
 ##world.run()
 def create_models(display_size):
     lifemodel = Life("game of life", 74, 45, *display_size, .3)
-    brianmodel = BriansBrain("brian's brain", 74, 45, *display_size, .3)
-    seedmodel = Seed("'Seed' model", 74, 45, *display_size, .1)
-    smoothmodel = SmoothAutomata("life-ish smooth automata", 74, 45, *display_size, .4)
-    life3dmodel = Life3D("game of life 3D", 15, 15, 10, *display_size, .1)
-    fluidmodel = Fluid("Simple Fluid Model 2D", 74, 45, *display_size, .8)
-    fluidmodel3D = Fluid3D("Simple Fluid Model 3D", 20, 20, 10, *display_size, .4)
-    models = [lifemodel, brianmodel, seedmodel, smoothmodel, life3dmodel, fluidmodel, fluidmodel3D]
+    # brianmodel = BriansBrain("brian's brain", 74, 45, *display_size, .3)
+    # seedmodel = Seed("'Seed' model", 74, 45, *display_size, .1)
+    # smoothmodel = SmoothAutomata("life-ish smooth automata", 74, 45, *display_size, .4)
+    # life3dmodel = Life3D("game of life 3D", 15, 15, 10, *display_size, .1)
+    # fluidmodel = Fluid("Simple Fluid Model 2D", 74, 45, *display_size, .8)
+    # fluidmodel3D = Fluid3D("Simple Fluid Model 3D", 20, 20, 10, *display_size, .4)
+    # models = [lifemodel, brianmodel, seedmodel, smoothmodel, life3dmodel, fluidmodel, fluidmodel3D]
+    models = [lifemodel]
     return models
