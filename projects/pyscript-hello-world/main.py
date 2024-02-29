@@ -1,5 +1,5 @@
 from pyscript import document, display
-# import mip
+import mip
 #
 # # mip.install("http://localhost:8080/nltk.whl", "nltk")
 # # # from nltk import *
@@ -8,6 +8,7 @@ from pyscript import document, display
 # # test.close()
 # a = "<button id='my_button'>Click me!</button>"
 # self = type(document.body)
+mip.install("asyncio")
 import asyncio
 async def foo():
     i = 0
