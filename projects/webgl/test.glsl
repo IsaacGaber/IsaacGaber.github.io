@@ -1,86 +1,55 @@
-float sdSphere( vec3 p, float s )
-{
-  return length(p)-s;
-}
+// Conway's game of life
 
-float map( in vec3 pos )
-{
-    float an = 2.5*(0.5+0.5*sin(iTime*1.1+3.0));
-    vec2 c = vec2(sin(an),cos(an));
-    return sdSphere(pos, 0.3);
-}
+#ifdef GL_ES
+precision highp float;
+#endif
 
-// https://iquilezles.org/articles/normalsSDF
-vec3 calcNormal( in vec3 pos )
-{
-    vec2 e = vec2(1.0,-1.0)*0.5773;
-    const float eps = 0.0005;
-    return normalize( e.xyy*map( pos + e.xyy*eps ) + 
-					  e.yyx*map( pos + e.yyx*eps ) + 
-					  e.yxy*map( pos + e.yxy*eps ) + 
-					  e.xxx*map( pos + e.xxx*eps ) );
-}
-    
-#define AA 0
+uniform float time;
+uniform vec2 mouse;
+uniform vec2 resolution;
+uniform sampler2D backbuffer;
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
-{
-     // camera movement	
-	float an = 0.7*iTime;
-	vec3 ro = vec3( 1.0*cos(an), 0.2, 1.0*sin(an) );
-    vec3 ta = vec3( 0.0, 0.0, 0.0 );
-    // camera matrix
-    vec3 ww = normalize( ta - ro );
-    vec3 uu = normalize( cross(ww,vec3(0.0,1.0,0.0) ) );
-    vec3 vv =          ( cross(uu,ww));
-    
-    // render
-    vec3 tot = vec3(0.0);
-    
-    #if AA>1
-    for( int m=0; m<AA; m++ )
-    for( int n=0; n<AA; n++ )
-    {
-        // pixel coordinates
-        vec2 o = vec2(float(m),float(n)) / float(AA) - 0.5;
-        vec2 p = (-iResolution.xy + 2.0*(fragCoord+o))/iResolution.y;
-        #else    
-        vec2 p = (-iResolution.xy + 2.0*fragCoord)/iResolution.y;
-        #endif
+vec4 live = vec4(0.5,1.0,0.7,1.);
+vec4 dead = vec4(0.,0.,0.,1.);
+vec4 blue = vec4(0.,0.,1.,1.);
 
-	    // create view ray
-        vec3 rd = normalize( p.x*uu + p.y*vv + 1.5*ww );
+void main( void ) {
+	vec2 position = ( gl_FragCoord.xy / resolution.xy );
+	vec2 pixel = 1./resolution;
 
-        // raymarch
-        const float tmax = 5.0;
-        float t = 0.0;
-        for( int i=0; i<256; i++ )
-        {
-            vec3 pos = ro + t*rd;
-            float h = map(pos);
-            if( h<0.0001 || t>tmax ) break;
-            t += h;
-        }
-        
-    
-        // shading/lighting	
-        vec3 col = vec3(0.0);
-        if( t<tmax )
-        {
-            vec3 pos = ro + t*rd;
-            vec3 nor = calcNormal(pos);
-            float dif = clamp( dot(nor,vec3(0.57703)), 0.0, 1.0 );
-            float amb = 0.5 + 0.5*dot(nor,vec3(0.0,1.0,0.0));
-            col = vec3(0.2,0.3,0.4)*amb + vec3(0.8,0.7,0.5)*dif;
-        }
+	if (length(position-mouse) < 0.01) {
+		float rnd1 = mod(fract(sin(dot(position + time * 0.001, vec2(14.9898,78.233))) * 43758.5453), 1.0);
+		if (rnd1 > 0.5) {
+			gl_FragColor = live;
+		} else {
+			gl_FragColor = blue;
+		}
+	} else {
+		float sum = 0.;
+		sum += texture2D(backbuffer, position + pixel * vec2(-1., -1.)).g;
+		sum += texture2D(backbuffer, position + pixel * vec2(-1., 0.)).g;
+		sum += texture2D(backbuffer, position + pixel * vec2(-1., 1.)).g;
+		sum += texture2D(backbuffer, position + pixel * vec2(1., -1.)).g;
+		sum += texture2D(backbuffer, position + pixel * vec2(1., 0.)).g;
+		sum += texture2D(backbuffer, position + pixel * vec2(1., 1.)).g;
+		sum += texture2D(backbuffer, position + pixel * vec2(0., -1.)).g;
+		sum += texture2D(backbuffer, position + pixel * vec2(0., 1.)).g;
+		vec4 me = texture2D(backbuffer, position);
 
-        // gamma        
-        col = sqrt( col * vec3(0.0, 1.0, 1.0)) ;
-	    tot += col;
-    #if AA>1
-    }
-    tot /= float(AA*AA);
-    #endif
-
-	fragColor = vec4( tot, 1.0 );
+		if (me.g <= 0.1) {
+			if ((sum >= 2.9) && (sum <= 3.1)) {
+				gl_FragColor = live;
+			} else if (me.b > 0.004) {
+				gl_FragColor = vec4(0., 0., max(me.b - 0.004, 0.25), 0.);
+			} else {
+				gl_FragColor = dead;
+			}
+		} else {
+			if ((sum >= 1.9) && (sum <= 3.1)) {
+				gl_FragColor = live;
+			} else {
+				gl_FragColor = blue;
+			}
+		}
+	}
 }
