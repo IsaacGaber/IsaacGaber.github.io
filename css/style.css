@@ -28,7 +28,7 @@ ul {
   justify-content: center;
 }
 .app {
-  align-items: center;
+  align-self: center;
 }
 .page-footer, .page-header {
   flex-grow: 0;
