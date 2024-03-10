@@ -27,6 +27,9 @@ ul {
   align-items: center;
   justify-content: center;
 }
+.app {
+  align-items: center;
+}
 .page-footer, .page-header {
   flex-grow: 0;
   flex-shrink: 0;
