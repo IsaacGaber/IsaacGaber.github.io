@@ -1,0 +1,7 @@
+# [files]
+# # "nltk.whl" = ""
+# "test/test.txt" = ""
+
+
+packages = ["asyncio"]
+# python -m http.server 8080 --bind 127.0.0.1
