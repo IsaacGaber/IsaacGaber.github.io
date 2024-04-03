@@ -74,16 +74,17 @@ async function loadVision() {
           delegate: "GPU"
         },
         outputFaceBlendshapes: true,
-        runningMode: "IMAGE",
+        runningMode: "VIDEO",
         numFaces: 1
       });
 }
 loadVision();
 
 var webcamRunning = false;
-const video = document.getElementById("webcam")
+const video = document.getElementById("webcam");
 const image = document.getElementById("image");
-// const button = document.getElementById("button");
+const output = document.getElementById("output");
+// const button = document.getElementById("imageButton");
 //
 // button.addEventListener("click", function () {
 //   console.log(faceLandmarker.detect(image).faceBlendshapes)
@@ -95,7 +96,6 @@ function hasGetUserMedia() {
 
 // If webcam supported, add event listener to button for when user
 // wants to activate it.
-console.log(hasGetUserMedia())
 if (hasGetUserMedia()) {
   var enableWebcamButton = document.getElementById(
     "webcamButton"
@@ -127,6 +127,26 @@ function enableCam(event) {
   // Activate the webcam stream.
   navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
     video.srcObject = stream;
-    // video.addEventListener("loadeddata", predictWebcam);
+    video.addEventListener("loadeddata", predictWebcam);
   });
+}
+
+let lastVideoTime = -1;
+let results = undefined;
+async function predictWebcam() {
+  const radio = video.videoHeight / video.videoWidth;
+  video.style.width = videoWidth + "px";
+  video.style.height = videoWidth * radio + "px";
+
+  let startTimeMs = performance.now();
+  if (lastVideoTime !== video.currentTime) {
+    lastVideoTime = video.currentTime;
+    results = faceLandmarker.detectForVideo(video, startTimeMs);
+  }
+  if (results.faceLandmarks) {
+
+    // const blinkAverage = (results.faceBlendshapes[9] + results.faceBlendshapes[10])/2;
+    // console.log(blinkAverage);
+    console.log(results.faceBlendshapes[0]);
+  }
 }
