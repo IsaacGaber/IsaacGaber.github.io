@@ -2,10 +2,77 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="author" content="Isaac Gaber">
+    <meta
+    name="description"
+    content="learning jscript">
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="https://isaacgaber.github.io/static/img/favicon144.png" />
+    <!-- iPhone with high-resolution Retina display: -->
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="https://isaacgaber.github.io//static/img/favicon114.png" />
+    <!-- first- and second-generation iPad: -->
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="https://isaacgaber.github.io/static/img/favicon72.png" />
+    <!-- non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link
+      rel="apple-touch-icon"
+      href="https://isaacgaber.github.io/static/img/favicon57.png" />
+    <!-- basic favicon -->
+    <link
+      rel="icon"
+      href="https://isaacgaber.github.io/static/img/favicon32.png" />
+    <link rel="stylesheet" href="https://isaacgaber.github.io/css/style.css">
     <title>JS TEST</title>
   </head>
   <body>
-    <script type="text/javascript" src="test.js">
+    <img id="image" height="100" src="../eye_detect/headshot.jpg" alt="headshot of isaac gamer">
+    <h1>Open WebCam Using JavaScript</h1>
+    <br/>
+    <button id="startBtn" onclick="openCam()">Open Webcam</button>
+    <br/><br/>
+    <video id="videoCam"></video>
+    <script>
+       function openCam(){
+          let All_mediaDevices=navigator.mediaDevices
+          if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+             console.log("getUserMedia() not supported.");
+             return;
+          }
+          All_mediaDevices.getUserMedia({
+             video: true
+          })
+          .then(function(vidStream) {
+             var video = document.getElementById('videoCam');
+             if ("srcObject" in video) {
+                video.srcObject = vidStream;
+             } else {
+                video.src = window.URL.createObjectURL(vidStream);
+             }
+             video.onloadedmetadata = function(e) {
+                video.play();
+             };
+          })
+          .catch(function(e) {
+             console.log(e.name + ": " + e.message);
+          });
+       }
     </script>
+    <!-- <button type="button">click me to change the color</button> -->
+    <p>A map of Elise would confuse all but the most imaginative geographers. The city takes a roughly circular shape and sits in the midst of a vast plain of tall grasses and scattered oaks. In the ancient city's center, the municipal government maintains a small museum dedicated to the history of the city. When tourists visit they often make it their first stop after leaving their baggage in the sparkling hotels. Inside, a tour guide leads them to a brown clay relief map of the city. At first glance, the city has rings like a tree. Rings of valleys with cast silver rivers at their bases. The tourists stare, and their eyes trace the outermost valley as it curves gently into the heart of the city. When the valley leads their eyes to reach the center, they realize that their gaze never strayed from that one valley.<audio src="come-as-you-are.wav"></audio></p>
+
+    <p>All of the city of Elise lies in the same coiled valley. Only one river enters from the periphery. That silver ribbon winds tighter and tighter after it enters the mouth of the Valley. The tall walls of the long valley block the river from ever again seeing the other side of any of its bends.</p>
+
+    <p>Today, the people of the city travel on a system of aerial gondola and subways. They travel over and under the river but only rarely on it. A long time ago when life was slower, courtiers and beggars alike used to make the journey every day from the various neighborhoods on the city's outskirts towards the palaces at its center by way of a ferry which left just after sunrise and arrived sometime after brunch. Along the way, people would disembark. In those days, you could tell how well off a Elisian was by where they got off the ferry. The wealthiest spent their nights at estates outside the city, commuting a long ways every morning. The hovels of the meanest poor almost abutted the palace district, so they rode the ferry for only a short ways, if at all. The shorter their ride through the spiral city, the poorer they must be. Towards the end of each ferry ride, only the wealthiest courtiers and the poorest beggars remained. None of the inhabitants have much time for this anymore, and while the ferry still runs, now only tourists take the time to ride it. The locals all avoid the river.
+    </p>
+
+    <p>When the now languid river reaches the center of the city, it disappears into a vast pool in the central plaza. No one knows where it goes. A century ago, after guns rang out in the streets leaving bullet scars on the palaces' ornate facades, men wearing red sashes moved into the old palaces. They brought with them instruments of science and unsuccessfully sounded the depths of the city's silver heart using jute ropes weighted with lead. When the palaces' former inhabitants came back with a vengeance, they brought with them more guns and more men. They scarred the facades once more. After the men with sashes died, no one tried to measure the depth of the heart pool again.<audio src="smells-like-teen-spirit.wav"></audio></p>
+    <script type="text/javascript" src="test.js"></script>
   </body>
 </html>
