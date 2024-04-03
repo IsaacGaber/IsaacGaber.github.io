@@ -56,25 +56,77 @@ window.addEventListener('resize', handler);
 // Facial Detecton
 import vision from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 const { FaceLandmarker, FilesetResolver, DrawingUtils } = vision;
+const videoWidth = 480;
 
+
+let faceLandmarker;
 
 async function loadVision() {
   const vision = await FilesetResolver.forVisionTasks(
     // path/to/wasm/root
     "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
   );
-  const faceLandmarker = await FaceLandmarker.createFromOptions(
+  faceLandmarker = await FaceLandmarker.createFromOptions(
       vision,
       {
         baseOptions: {
-          modelAssetPath: "face_landmarker.task"
+          modelAssetPath: "face_landmarker.task",
+          delegate: "GPU"
         },
-        runningMode: "IMAGE"
+        outputFaceBlendshapes: true,
+        runningMode: "IMAGE",
+        numFaces: 1
       });
-  const image = document.getElementById("image");
-  const button = document.querySelector("button");
-  button.addEventListener("click", function () {
-    console.log(faceLandmarker.detect(image))
-  });
 }
 loadVision();
+
+var webcamRunning = false;
+const video = document.getElementById("webcam")
+const image = document.getElementById("image");
+// const button = document.getElementById("button");
+//
+// button.addEventListener("click", function () {
+//   console.log(faceLandmarker.detect(image).faceBlendshapes)
+// });
+// Check if webcam access is supported.
+function hasGetUserMedia() {
+  return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+}
+
+// If webcam supported, add event listener to button for when user
+// wants to activate it.
+console.log(hasGetUserMedia())
+if (hasGetUserMedia()) {
+  var enableWebcamButton = document.getElementById(
+    "webcamButton"
+  );
+  enableWebcamButton.addEventListener("click", enableCam);
+} else {
+  console.warn("getUserMedia() is not supported by your browser");
+}
+
+function enableCam(event) {
+  if (!faceLandmarker) {
+    console.log("Wait! faceLandmarker not loaded yet.");
+    return;
+  }
+
+  if (webcamRunning === true) {
+    webcamRunning = false;
+    enableWebcamButton.innerText = "ENABLE VIDEO";
+  } else {
+    webcamRunning = true;
+    enableWebcamButton.innerText = "DISABLE VIDEO";
+  }
+
+  // getUsermedia parameters.
+  const constraints = {
+    video: true
+  };
+
+  // Activate the webcam stream.
+  navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+    video.srcObject = stream;
+    // video.addEventListener("loadeddata", predictWebcam);
+  });
+}
