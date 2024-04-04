@@ -1,5 +1,6 @@
 // Helper Functions
-var eyes_closed = false;
+var blinking = false;
+const blinkThres = .3;
 // -----------------------------------------------------------------------------
 function elementInViewport2(el) {
   var top = el.offsetTop;
@@ -32,7 +33,7 @@ function update_visible(el){
     if (selected.children.length > 0){
       const audio = selected.querySelector("audio");
       if (audio && audio.playing && visible){
-      } else if (audio && visible && eyes_closed) {
+      } else if (audio && visible && blinking) {
         audio.play();
         currentAudio = audio;
       } else if (audio){
@@ -96,6 +97,7 @@ function hasGetUserMedia() {
 
 // If webcam supported, add event listener to button for when user
 // wants to activate it.
+
 if (hasGetUserMedia()) {
   var enableWebcamButton = document.getElementById(
     "webcamButton"
@@ -131,6 +133,7 @@ function enableCam(event) {
   });
 }
 
+
 let lastVideoTime = -1;
 let results = undefined;
 async function predictWebcam() {
@@ -143,10 +146,21 @@ async function predictWebcam() {
     lastVideoTime = video.currentTime;
     results = faceLandmarker.detectForVideo(video, startTimeMs);
   }
-  if (results.faceLandmarks) {
-
-    // const blinkAverage = (results.faceBlendshapes[9] + results.faceBlendshapes[10])/2;
-    // console.log(blinkAverage);
-    console.log(results.faceBlendshapes[0]);
+  if (results.faceBlendshapes[0].categories) {
+    const blinkAverage = (results.faceBlendshapes[0].categories[9].score
+    + results.faceBlendshapes[0].categories[10].score)/2;
+    console.log(blinkAverage);
+    if (blinkAverage > blinkThres) {
+      output.innerText = "blinking";
+      blinking = true;
+      update_visible(element);
+    } else {
+      output.innerText = "eyes open";
+      blinking = false;
+    }
+  }
+    // Call this function again to keep predicting when the browser is ready.
+  if (webcamRunning === true) {
+    window.requestAnimationFrame(predictWebcam);
   }
 }
