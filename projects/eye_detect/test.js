@@ -1,7 +1,7 @@
 // Helper Functions
 var blinking = false;
 var blinkCount = 0;
-const blinkWait = 2; // wait two frames before switching blinking to true
+const blinkWait = 4; // wait two frames before switching blinking to true
 const blinkThres = .3;
 // -----------------------------------------------------------------------------
 function elementInViewport2(el) {
@@ -38,7 +38,7 @@ function update_visible(el){
       } else if (audio && visible && blinking) {
         audio.play();
         currentAudio = audio;
-      } else if (audio){
+      } else {
         audio.pause();
         // audio.currentTime = 0.0;
       }
@@ -152,20 +152,25 @@ async function predictWebcam() {
   const blinkAverage = (results.faceBlendshapes[0].categories[9].score
   + results.faceBlendshapes[0].categories[10].score)/2;
   console.log(blinkAverage);
+  console.log(blinking)
   if (blinkAverage > blinkThres) {
     blinkCount += 1;
     blinkCount = Math.min(blinkCount, blinkWait+2);
-    if (blinkCount > blinkWait);
+    if (blinkCount > blinkWait){
       output.innerText = "blinking";
       blinking = true;
-      update_visible(element);
-  } else {
-    blink -= 1;
-    output.innerText = "eyes open";
-    if (blinkCount < blinkWait) {
-      blinking = false;
     }
-  }
+  } else {
+      blinkCount -= 1;
+      blinkCount = Math.max(blinkCount, 0);
+      // console.log(blinkCount)
+      output.innerText = "eyes open";
+      if (blinkCount < blinkWait) {
+        blinking = false;
+      }
+    }
+  // Refresh music and currently visible els
+  update_visible(element);
   // }
     // Call this function again to keep predicting when the browser is ready.
   if (webcamRunning === true) {
