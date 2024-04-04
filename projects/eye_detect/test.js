@@ -1,5 +1,7 @@
 // Helper Functions
 var blinking = false;
+var blinkCount = 0;
+const blinkWait = 2; // wait two frames before switching blinking to true
 const blinkThres = .3;
 // -----------------------------------------------------------------------------
 function elementInViewport2(el) {
@@ -146,19 +148,25 @@ async function predictWebcam() {
     lastVideoTime = video.currentTime;
     results = faceLandmarker.detectForVideo(video, startTimeMs);
   }
-  if (results.faceBlendshapes[0].categories) {
-    const blinkAverage = (results.faceBlendshapes[0].categories[9].score
-    + results.faceBlendshapes[0].categories[10].score)/2;
-    console.log(blinkAverage);
-    if (blinkAverage > blinkThres) {
+  // if (results.faceBlendshapes[0].categories) {
+  const blinkAverage = (results.faceBlendshapes[0].categories[9].score
+  + results.faceBlendshapes[0].categories[10].score)/2;
+  console.log(blinkAverage);
+  if (blinkAverage > blinkThres) {
+    blinkCount += 1;
+    blinkCount = Math.min(blinkCount, blinkWait+2);
+    if (blinkCount > blinkWait);
       output.innerText = "blinking";
       blinking = true;
       update_visible(element);
-    } else {
-      output.innerText = "eyes open";
+  } else {
+    blink -= 1;
+    output.innerText = "eyes open";
+    if (blinkCount < blinkWait) {
       blinking = false;
     }
   }
+  // }
     // Call this function again to keep predicting when the browser is ready.
   if (webcamRunning === true) {
     window.requestAnimationFrame(predictWebcam);
