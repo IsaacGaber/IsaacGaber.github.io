@@ -32,7 +32,7 @@ function update_visible(el){
     // console.log(selected)
     if (selected.children.length > 0){
       const audio = selected.querySelector("audio");
-      if (audio && audio.playing && visible){
+      if (audio && audio.playing && visible && blinking){
       } else if (audio && visible && blinking) {
         audio.play();
         currentAudio = audio;
