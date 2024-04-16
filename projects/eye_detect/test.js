@@ -148,27 +148,35 @@ async function predictWebcam() {
     lastVideoTime = video.currentTime;
     results = faceLandmarker.detectForVideo(video, startTimeMs);
   }
+  // console.log()
   // if (results.faceBlendshapes[0].categories) {
-  const blinkAverage = (results.faceBlendshapes[0].categories[9].score
-  + results.faceBlendshapes[0].categories[10].score)/2;
-  console.log(blinkAverage);
-  console.log(blinking)
-  if (blinkAverage > blinkThres) {
-    blinkCount += 1;
-    blinkCount = Math.min(blinkCount, blinkWait+2);
-    if (blinkCount > blinkWait){
-      output.innerText = "blinking";
-      blinking = true;
+  if (results.faceLandmarks.length > 0) {
+    const blinkAverage = (results.faceBlendshapes[0].categories[9].score
+    + results.faceBlendshapes[0].categories[10].score)/2;
+    console.log(blinkAverage);
+    console.log(blinking)
+    if (blinkAverage > blinkThres) {
+      blinkCount += 1;
+      blinkCount = Math.min(blinkCount, blinkWait+2);
+      if (blinkCount > blinkWait){
+        output.innerText = "blinking";
+        blinking = true;
+      }
+    }else {
+        blinkCount -= 1;
+        blinkCount = Math.max(blinkCount, 0);
+        // console.log(blinkCount)
+        output.innerText = "eyes open";
+        if (blinkCount < blinkWait) {
+          blinking = false;
+        }
     }
   } else {
-      blinkCount -= 1;
-      blinkCount = Math.max(blinkCount, 0);
-      // console.log(blinkCount)
-      output.innerText = "eyes open";
-      if (blinkCount < blinkWait) {
-        blinking = false;
-      }
-    }
+    blinkCount = 0;
+    blinking = false;
+    output.innerText = "face not detected";
+  }
+
   // Refresh music and currently visible els
   update_visible(element);
   // }
