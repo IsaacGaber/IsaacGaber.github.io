@@ -172,8 +172,8 @@ async function predictWebcam() {
         }
     }
   } else {
-    blinkCount = 0;
-    blinking = false;
+    blinkCount = blinkCount;
+    blinking = blinking;
     output.innerText = "face not detected";
   }
 
