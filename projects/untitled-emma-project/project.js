@@ -27,6 +27,7 @@ function elementInViewport2(el) {
 }
 
 var currentAudio;
+var blink = false;
 function update_visible(el){
   // changes colors of all visible to red
   for (let i = 0; i < el.length; i++) {
@@ -37,16 +38,17 @@ function update_visible(el){
     if (selected.children.length > 0){
       const audio = selected.querySelector("audio");
       // console.log(audio.volume)
-      if (audio && audio.playing && visible && blinking){
+      console.log(audio.playing)
+      if (audio && !audio.playing && visible && blinking){
         // audio.volume *= 1.1
-      } else if (audio && visible && blinking) {
+        console.log("audio started")
         audio.play();
+        // audio.addEventListener("ended", function () {finishedAudio = true})
         audio.volume = 1;
         currentAudio = audio;
-      } else if (audio.playing) {
-
-      }
-      else {
+      // } else if (!blinking && !audio.playing) {
+      //   finishedAudio = false
+      } else {
         if (audio.volume <= .1){
           audio.pause();
           audio.volume = 0;
@@ -122,7 +124,7 @@ function enableCam(event) {
     console.log("Wait! faceLandmarker not loaded yet.");
     return;
   }
-
+  enableWebcamButton.remove()
   if (webcamRunning === true) {
     webcamRunning = false;
     enableWebcamButton.innerText = "ENABLE VIDEO";
