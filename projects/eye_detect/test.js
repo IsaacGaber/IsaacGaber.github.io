@@ -2,7 +2,9 @@
 var blinking = false;
 var blinkCount = 0;
 const blinkWait = 4; // wait two frames before switching blinking to true
-const blinkThres = .3;
+const blinkThres = .5;
+const fadeOut = .01;
+const fadeIn = .2;
 // -----------------------------------------------------------------------------
 function elementInViewport2(el) {
   var top = el.offsetTop;
@@ -34,12 +36,23 @@ function update_visible(el){
     // console.log(selected)
     if (selected.children.length > 0){
       const audio = selected.querySelector("audio");
+      // console.log(audio.volume)
       if (audio && audio.playing && visible && blinking){
+        // audio.volume *= 1.1
       } else if (audio && visible && blinking) {
         audio.play();
+        audio.volume = 1;
         currentAudio = audio;
-      } else {
-        audio.pause();
+      } else if (audio.playing) {
+
+      }
+      else {
+        if (audio.volume <= .1){
+          audio.pause();
+          audio.volume = 0;
+        } else {
+          audio.volume -= fadeOut;
+        }
         // audio.currentTime = 0.0;
       }
     }
@@ -153,8 +166,8 @@ async function predictWebcam() {
   if (results.faceLandmarks.length > 0) {
     const blinkAverage = (results.faceBlendshapes[0].categories[9].score
     + results.faceBlendshapes[0].categories[10].score)/2;
-    console.log(blinkAverage);
-    console.log(blinking)
+    // console.log(blinkAverage);
+    // console.log(blinking)
     if (blinkAverage > blinkThres) {
       blinkCount += 1;
       blinkCount = Math.min(blinkCount, blinkWait+2);
