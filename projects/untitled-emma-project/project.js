@@ -27,28 +27,23 @@ function elementInViewport2(el) {
 }
 
 var currentAudio;
-var blink = false;
 function update_visible(el){
   // changes colors of all visible to red
   for (let i = 0; i < el.length; i++) {
     const selected = el[i];
     const visible = elementInViewport2(selected);
 
-    // console.log(selected)
     if (selected.children.length > 0){
       const audio = selected.querySelector("audio");
-      // console.log(audio.volume)
       console.log(audio.playing)
       if (audio && !audio.playing && visible && blinking){
         // audio.volume *= 1.1
         console.log("audio started")
         audio.play();
-        // audio.addEventListener("ended", function () {finishedAudio = true})
         audio.volume = 1;
         currentAudio = audio;
-      // } else if (!blinking && !audio.playing) {
-      //   finishedAudio = false
-      } else {
+        break // breaks out of loop at first audio node, avoids playing multiple at once
+    } else {
         if (audio.volume <= .1){
           audio.pause();
           audio.volume = 0;
