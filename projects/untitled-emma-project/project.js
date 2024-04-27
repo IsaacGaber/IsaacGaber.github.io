@@ -1,7 +1,7 @@
 // Helper Functions
 var blinking = false;
 var blinkCount = 0;
-const blinkWait = 5; // wait some frames before switching blinking to true
+const blinkWait = 8; // wait some frames before switching blinking to true
 const blinkThres = .5;
 const fadeOut = .05;
 const fadeIn = .05;
