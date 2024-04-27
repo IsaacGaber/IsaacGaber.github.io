@@ -1,10 +1,10 @@
 // Helper Functions
 var blinking = false;
 var blinkCount = 0;
-const blinkWait = 4; // wait two frames before switching blinking to true
+const blinkWait = 5; // wait some frames before switching blinking to true
 const blinkThres = .5;
-const fadeOut = .01;
-const fadeIn = .2;
+const fadeOut = .05;
+const fadeIn = .05;
 // -----------------------------------------------------------------------------
 function elementInViewport2(el) {
   var top = el.offsetTop;
@@ -99,7 +99,7 @@ loadVision();
 var webcamRunning = false;
 const video = document.getElementById("webcam");
 const image = document.getElementById("image");
-const output = document.getElementById("output");
+// const output = document.getElementById("output");
 // Check if webcam access is supported.
 function hasGetUserMedia() {
   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -167,14 +167,14 @@ async function predictWebcam() {
       blinkCount += 1;
       blinkCount = Math.min(blinkCount, blinkWait+2);
       if (blinkCount > blinkWait){
-        output.innerText = "blinking";
+        // output.innerText = "blinking";
         blinking = true;
       }
     }else {
         blinkCount -= 1;
         blinkCount = Math.max(blinkCount, 0);
         // console.log(blinkCount)
-        output.innerText = "eyes open";
+        // output.innerText = "eyes open";
         if (blinkCount < blinkWait) {
           blinking = false;
         }
@@ -182,7 +182,7 @@ async function predictWebcam() {
   } else {
     blinkCount = blinkCount;
     blinking = blinking;
-    output.innerText = "face not detected";
+    // output.innerText = "face not detected";
   }
 
   // Refresh music and currently visible els
