@@ -47,7 +47,7 @@ ul {
   font-size: 64pt;
 }
 .page-footer::after {
-  content: '2024 By Isaac Gaber.';
+  content: '2025 By Isaac Gaber.';
 }
 .page-body {
   flex-grow: 1;
